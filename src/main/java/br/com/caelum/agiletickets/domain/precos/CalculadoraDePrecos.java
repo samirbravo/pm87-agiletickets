@@ -15,12 +15,7 @@ public class CalculadoraDePrecos {
 		if (sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.CINEMA)
 				|| sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.SHOW)) {
 			// quando estiver acabando os ingressos...
-			if ((sessao.getTotalIngressos() - sessao.getIngressosReservados())
-					/ sessao.getTotalIngressos().doubleValue() <= 0.05) {
-				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
-			} else {
-				preco = sessao.getPreco();
-			}
+			preco = calcularPrecoGeral(sessao, 0.05, 0.10);
 		} else if (sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.BALLET)
 				|| sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
 			if ((sessao.getTotalIngressos() - sessao.getIngressosReservados())
@@ -52,5 +47,15 @@ public class CalculadoraDePrecos {
 		return preco.multiply(BigDecimal.valueOf(quantidade));
 	}
 	
+	private static BigDecimal calcularPrecoGeral(Sessao sessao, double percentualMinimo, double fatorAumento){
+		
+		if ((sessao.getTotalIngressos() - sessao.getIngressosReservados())
+				/ sessao.getTotalIngressos().doubleValue() <= percentualMinimo) {
+			return sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(fatorAumento)));
+		} else {
+			return sessao.getPreco();
+		}
+
+	}
 
 }
