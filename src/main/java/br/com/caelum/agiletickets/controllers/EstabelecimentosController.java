@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Strings;
+
 import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
 import br.com.caelum.agiletickets.models.Estabelecimento;
 import br.com.caelum.vraptor.Controller;
@@ -12,8 +14,6 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Validator;
-
-import com.google.common.base.Strings;
 
 @Controller
 public class EstabelecimentosController {
@@ -49,7 +49,4 @@ public class EstabelecimentosController {
 		result.redirectTo(this).lista();
 	}
 
-	private boolean ehbranco(String a) {
-		return Strings.isNullOrEmpty(a);
-	}
 }
