@@ -23,6 +23,38 @@ public class EspetaculoTest {
 	}
 	
 	@Test
+	public void deveInformarQueCriaUmaUnicaSessaoSeDataInicialEhIgualADataFinalEPeriodicidadeSemanal(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate dataHoje = LocalDate.now();
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = ivete.criaSessoes(dataHoje, dataHoje, horario, periodicidade);
+		
+		assertEquals(1, sessoes.size());
+	}
+	
+	@Test
+	public void deveInformarQueCriaSessaoComDiaDiferenteEm5DiasPeriodoDiario(){
+		
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusDays(4);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(inicio, sessoes.get(0).getInicio().toLocalDate());
+		assertEquals(inicio.plusDays(1), sessoes.get(1).getInicio().toLocalDate());
+		assertEquals(inicio.plusDays(2), sessoes.get(2).getInicio().toLocalDate());
+		assertEquals(inicio.plusDays(3), sessoes.get(3).getInicio().toLocalDate());
+		assertEquals(inicio.plusDays(4), sessoes.get(4).getInicio().toLocalDate());
+	}
+	
+	
+	@Test
 	public void deveInformarSeCria5SessoesEm5Diarias(){
 		Espetaculo ivete = new Espetaculo();
 		
@@ -33,20 +65,6 @@ public class EspetaculoTest {
 		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
 		
 		assertEquals(5, sessoes.size());
-	}
-
-	
-	
-	@Test
-	public void deveInformarQueCriaUmaUnicaSessaoSeDataInicialEhIgualADataFinalEPeriodicidadeSemanal(){
-		Espetaculo ivete = new Espetaculo();
-		
-		LocalDate dataHoje = LocalDate.now();
-		LocalTime horario = LocalTime.now();
-		Periodicidade periodicidade = Periodicidade.SEMANAL;
-		List<Sessao> sessoes = ivete.criaSessoes(dataHoje, dataHoje, horario, periodicidade);
-		
-		assertEquals(1, sessoes.size());
 	}
 	
 	@Test
