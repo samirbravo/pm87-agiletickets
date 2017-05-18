@@ -55,6 +55,25 @@ public class EspetaculoTest {
 	
 	
 	@Test
+	public void deveInformarQueCriaSessaoComDiaDiferenteEm5SemanasPeriodoSemanal(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusWeeks(4);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(inicio, sessoes.get(0).getInicio().toLocalDate());
+		assertEquals(inicio.plusWeeks(1), sessoes.get(1).getInicio().toLocalDate());
+		assertEquals(inicio.plusWeeks(2), sessoes.get(2).getInicio().toLocalDate());
+		assertEquals(inicio.plusWeeks(3), sessoes.get(3).getInicio().toLocalDate());
+		assertEquals(inicio.plusWeeks(4), sessoes.get(4).getInicio().toLocalDate());
+	}
+	
+	
+	@Test
 	public void deveInformarSeCria5SessoesEm5Diarias(){
 		Espetaculo ivete = new Espetaculo();
 		

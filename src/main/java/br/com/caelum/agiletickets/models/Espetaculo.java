@@ -111,18 +111,13 @@ public class Espetaculo {
 			if(periodicidade == Periodicidade.DIARIA){
 		
 				for(int i=0; i <= diferencaDias.getDays(); i++){
-						
-					Sessao sessao = new Sessao();
-					sessao.setInicio(data.toDateTime());
-					sessoes.add(sessao);
-					
+					criaSessao(sessoes, data);
+
 					data = data.plusDays(1);
 				}
 			}else{
 				for(int i=0; i <= diferencaSemanas.getWeeks(); i++){
-					Sessao sessao = new Sessao();
-					sessao.setInicio(data.toDateTime());
-					sessoes.add(sessao);
+					criaSessao(sessoes, data);
 					
 					data = data.plusWeeks(1);
 				}
@@ -130,7 +125,13 @@ public class Espetaculo {
 		}
 		return sessoes;
 	}
-	
+
+	private void criaSessao(List<Sessao> sessoes, LocalDateTime data) {
+		Sessao sessao = new Sessao();
+		sessao.setInicio(data.toDateTime());
+		sessoes.add(sessao);
+	}
+		
 	public boolean Vagas(int qtd, int min)
    {
        // ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
