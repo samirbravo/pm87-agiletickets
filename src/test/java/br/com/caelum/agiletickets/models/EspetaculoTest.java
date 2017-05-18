@@ -34,6 +34,7 @@ public class EspetaculoTest {
 		
 		assertEquals(5, sessoes.size());
 	}
+
 	
 	
 	@Test
@@ -44,6 +45,19 @@ public class EspetaculoTest {
 		LocalTime horario = LocalTime.now();
 		Periodicidade periodicidade = Periodicidade.SEMANAL;
 		List<Sessao> sessoes = ivete.criaSessoes(dataHoje, dataHoje, horario, periodicidade);
+		
+		assertEquals(1, sessoes.size());
+	}
+	
+	@Test
+	public void deveInformarSeCria1SessaoEm1Semana(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusDays(6);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
 		
 		assertEquals(1, sessoes.size());
 	}
