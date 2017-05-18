@@ -63,6 +63,19 @@ public class EspetaculoTest {
 	}
 	
 	@Test
+	public void deveInformarSeCria2SessoesEm2Semanas(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusWeeks(1);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(2, sessoes.size());
+	}
+	
+	@Test
 	public void deveInformarSeCria5SessoesEm5Semanas(){
 		Espetaculo ivete = new Espetaculo();
 		
@@ -76,6 +89,21 @@ public class EspetaculoTest {
 	}
 	
 	@Test
+	public void deveInformarSeDataInicialEhMaiorQueDataFinalEmDiaria(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.minusDays(1);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(0, sessoes.size());
+	}
+	
+	
+	
+	@Test
 	public void deveInformarSeEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -85,7 +113,7 @@ public class EspetaculoTest {
 
 		assertTrue(ivete.Vagas(5));
 	}
-
+	
 	@Test
 	public void deveInformarSeEhPossivelReservarAQuantidadeExataDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();

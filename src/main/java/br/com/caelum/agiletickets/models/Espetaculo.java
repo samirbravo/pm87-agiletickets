@@ -105,21 +105,19 @@ public class Espetaculo {
 		Days diferencaDias = Days.daysBetween(inicio, fim);
 		Weeks diferencaSemanas = Weeks.weeksBetween(inicio, fim);
 		
-		
-		if(periodicidade == Periodicidade.DIARIA){
-			for(int i=0; i <= diferencaDias.getDays(); i++){
-				Sessao sessao = new Sessao();
-				sessoes.add(sessao);
-			}
-		}else{
-			for(int i=0; i <= diferencaSemanas.getWeeks(); i++){
-				Sessao sessao = new Sessao();
-				sessoes.add(sessao);
+		if(!inicio.isAfter(fim)){
+			if(periodicidade == Periodicidade.DIARIA){
+				for(int i=0; i <= diferencaDias.getDays(); i++){
+					Sessao sessao = new Sessao();
+					sessoes.add(sessao);
+				}
+			}else{
+				for(int i=0; i <= diferencaSemanas.getWeeks(); i++){
+					Sessao sessao = new Sessao();
+					sessoes.add(sessao);
+				}
 			}
 		}
-		
-		
-		
 		return sessoes;
 	}
 	
