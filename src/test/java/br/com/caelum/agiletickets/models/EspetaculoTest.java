@@ -63,6 +63,19 @@ public class EspetaculoTest {
 	}
 	
 	@Test
+	public void deveInformarSeCria5SessoesEm5Semanas(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusWeeks(4);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(5, sessoes.size());
+	}
+	
+	@Test
 	public void deveInformarSeEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
 
