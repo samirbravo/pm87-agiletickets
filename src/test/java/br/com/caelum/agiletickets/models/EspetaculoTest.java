@@ -1,12 +1,53 @@
 package br.com.caelum.agiletickets.models;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 public class EspetaculoTest {
 
+	@Test
+	public void deveInformarQueCriaUmaUnicaSessaoSeDataInicialEhIgualADataFinalEPeriodicidadeDiaria(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate dataHoje = LocalDate.now();
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		List<Sessao> sessoes = ivete.criaSessoes(dataHoje, dataHoje, horario, periodicidade);
+		
+		assertEquals(1, sessoes.size());
+	}
+	
+	@Test
+	public void deveInformarSeCria5SessoesEm5Diarias(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate inicio = LocalDate.now();
+		LocalDate fim = inicio.plusDays(4);
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, periodicidade);
+		
+		assertEquals(5, sessoes.size());
+	}
+	
+	
+	@Test
+	public void deveInformarQueCriaUmaUnicaSessaoSeDataInicialEhIgualADataFinalEPeriodicidadeSemanal(){
+		Espetaculo ivete = new Espetaculo();
+		
+		LocalDate dataHoje = LocalDate.now();
+		LocalTime horario = LocalTime.now();
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		List<Sessao> sessoes = ivete.criaSessoes(dataHoje, dataHoje, horario, periodicidade);
+		
+		assertEquals(1, sessoes.size());
+	}
+	
 	@Test
 	public void deveInformarSeEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
