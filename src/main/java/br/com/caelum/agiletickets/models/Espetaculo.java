@@ -19,6 +19,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.Weeks;
+import org.joda.time.base.BaseSingleFieldPeriod;
 
 @Entity
 public class Espetaculo {
@@ -102,28 +103,37 @@ public class Espetaculo {
      */
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		List<Sessao> sessoes = new ArrayList<Sessao>();
-		
-		Days diferencaDias = Days.daysBetween(inicio, fim);
-		Weeks diferencaSemanas = Weeks.weeksBetween(inicio, fim);
+		int diferenca;
+				
 		LocalDateTime data = inicio.toLocalDateTime(horario);
 		
 		if(!inicio.isAfter(fim)){
 			if(periodicidade == Periodicidade.DIARIA){
-		
-				for(int i=0; i <= diferencaDias.getDays(); i++){
-					criaSessao(sessoes, data);
-
-					data = data.plusDays(1);
-				}
+				
+				diferenca = Days.daysBetween(inicio, fim).getDays();
+				data = populaSessao(sessoes, diferenca, data, periodicidade);
+				
 			}else{
-				for(int i=0; i <= diferencaSemanas.getWeeks(); i++){
-					criaSessao(sessoes, data);
-					
-					data = data.plusWeeks(1);
-				}
+				
+				diferenca = Weeks.weeksBetween(inicio, fim).getWeeks();
+				data = populaSessao(sessoes, diferenca, data, periodicidade);
 			}
 		}
 		return sessoes;
+	}
+
+	private LocalDateTime populaSessao(List<Sessao> sessoes, int diferenca, LocalDateTime data, Periodicidade periodo) {
+		for(int i=0; i <= diferenca; i++){
+			
+			criaSessao(sessoes, data);
+			
+			if(periodo == Periodicidade.DIARIA){
+				data = data.plusDays(1);
+			}else{
+				data = data.plusWeeks(1);
+			}
+		}
+		return data;
 	}
 
 	private void criaSessao(List<Sessao> sessoes, LocalDateTime data) {
